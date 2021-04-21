@@ -18,6 +18,11 @@ class AppStrings {
   static const String enterEmailAddress = "Please enter your Email Address";
   static const String userRegistrationSuccess = "User Profile created successfully";
 
+  static const String nothing = "Oops! There seems to be nothing here. Try again later";
+
+  static const String completed = "Completed";
+  static const String okayGotIt = "Okay, Got it";
+  static const String retry = "Try Again";
   static const String submit = "SUBMIT";
 
 }

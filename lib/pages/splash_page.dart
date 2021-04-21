@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
+import '../utils/preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -13,63 +14,95 @@ class SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 5), _handleTapEvent);
+    Future.delayed(const Duration(seconds: 5), handleTapEvent);
 
     return Scaffold(
       key: globalKey,
-      body: _splashContainer(),
+      body: splashContainer(),
     );
   }
 
-  Widget _splashContainer() {
+  Widget splashContainer() {
     return GestureDetector(
-      onTap: _handleTapEvent,
+      onTap: handleTapEvent,
       child: Container(
-        height: double.infinity,
-        width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.blue[400],
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.white, Colors.blue, Colors.black]),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 20.0),
-              child: Text(
-                "BE",
-                style: TextStyle(color: Colors.white, fontSize: 50),
+        child: Center(
+          child: Container(
+            height: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              gradient: RadialGradient(
+                colors: [
+                  Colors.white,
+                  Colors.blue,
+                  Colors.black,
+                  Colors.blue,
+                  Colors.white,
+                  Colors.blue,
+                  Colors.black,
+                  Colors.blue,
+                  Colors.white,
+                  Colors.blue,
+                  Colors.black,
+                  Colors.blue,
+                  Colors.white,
+                  Colors.blue,
+                  Colors.black,
+                  Colors.blue
+                ],
+                stops: [
+                  0.1,
+                  0.2,
+                  0.3,
+                  0.4,
+                  0.5,
+                  0.6,
+                  0.7,
+                  0.8,
+                  0.9,
+                  1.0,
+                  1.1,
+                  1.2,
+                  1.3,
+                  1.4,
+                  1.5,
+                  1.6
+                ],
+              ),
+              borderRadius:
+                  BorderRadius.circular(MediaQuery.of(context).size.width / 2),
+            ),
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(70),
+                  boxShadow: [BoxShadow(blurRadius: 5)],
+                ),
+                child: FlutterLogo(
+                  size: 100,
+                ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 20.0),
-              child: Text(
-                "Flutterred",
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20.0),
-              child: Text(
-                "! ! !",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 50),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  void _handleTapEvent() async {
+  void handleTapEvent() async {
+    Preferences.clear();
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
+        pageBuilder: (context, animation, secondaryAnimation) => HomePage(0),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var begin = Offset(0.0, 1.0);
           var end = Offset.zero;

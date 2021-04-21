@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/drawer_item.dart';
+import '../data/models/drawer_item.dart';
 import '../pages/tabs/design_page.dart';
 import '../pages/tabs/dictionary_page.dart';
 import '../pages/tabs/response_page.dart';
@@ -15,14 +15,21 @@ class HomePage extends StatefulWidget {
     DrawerItem(AppStrings.page4, Icons.book_online),
   ];
 
+  final int selectedIndex;
+
+  HomePage(this.selectedIndex);
+
   @override
   State<StatefulWidget> createState() {
-    return HomePageState();
+    return HomePageState(this.selectedIndex);
   }
 }
 
 class HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
+  HomePageState(this.selectedIndex);
+  final globalKey = GlobalKey<ScaffoldState>();
+
+  int selectedIndex;
 
   getDrawerItemWidget(int pos) {
     Widget child;
